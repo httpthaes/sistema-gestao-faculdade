@@ -4,6 +4,9 @@ using SistemaGestaoFaculdade.Services;
 var cursoService = new CursoService();
 var professorService = new ProfessorService();
 var alunoService = new AlunoService();
+var disciplinaService = new DisciplinaService();
+var matriculaService = new MatriculaService();
+var vinculoCursoDisciplinaService = new VinculoCursoDisciplinaService();
 bool executando = true;
 
 while (executando)
