@@ -1,9 +1,11 @@
-﻿using SistemaGestaoFaculdade.Models;
+﻿using System.Linq.Expressions;
+using SistemaGestaoFaculdade.Models;
 using SistemaGestaoFaculdade.Services;
 
 var cursoService = new CursoService();
 var professorService = new ProfessorService();
 var alunoService = new AlunoService();
+var disciplinaService = new DisciplinaService(professorService);
 bool executando = true;
 
 while (executando)
@@ -12,6 +14,7 @@ while (executando)
     Console.WriteLine("1 - Cadastrar curso");
     Console.WriteLine("2 - Cadastrar professor");
     Console.WriteLine("3 - Cadastrar aluno");
+    Console.WriteLine("4 - Cadastrar disciplina");
     Console.WriteLine("0 - Sair");
     Console.WriteLine("=======================================");
     Console.Write("Escolha uma opção: ");
@@ -21,97 +24,124 @@ while (executando)
     switch (opcao)
     {
         case "1":
-        {
-            Console.WriteLine("\n--- CADASTRO DE CURSO ---");
-            Console.Write("Código: ");
-            string codigo = Console.ReadLine() ?? "";
-
-            Console.Write("Nome: ");
-            string nome = Console.ReadLine() ?? "";
-
-            Console.WriteLine("Tipo do Curso:");
-            Console.WriteLine("1 - Graduação");
-            Console.WriteLine("2 - Pós-graduação");
-            Console.Write("Opção: ");
-            string tipoInput = Console.ReadLine() ?? "";
-
-            TipoCurso tipo = tipoInput == "2" ? TipoCurso.PosGraduacao : TipoCurso.Graduacao;
-
-            try
             {
-                cursoService.CadastrarCurso(codigo, nome, tipo);
-                Console.WriteLine("\nCurso cadastrado com sucesso!");
+                Console.WriteLine("\n--- CADASTRO DE CURSO ---");
+                Console.Write("Código: ");
+                string codigo = Console.ReadLine() ?? "";
+
+                Console.Write("Nome: ");
+                string nome = Console.ReadLine() ?? "";
+
+                Console.WriteLine("Tipo do Curso:");
+                Console.WriteLine("1 - Graduação");
+                Console.WriteLine("2 - Pós-graduação");
+                Console.Write("Opção: ");
+                string tipoInput = Console.ReadLine() ?? "";
+
+                TipoCurso tipo = tipoInput == "2" ? TipoCurso.PosGraduacao : TipoCurso.Graduacao;
+
+                try
+                {
+                    cursoService.CadastrarCurso(codigo, nome, tipo);
+                    Console.WriteLine("\nCurso cadastrado com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"\nErro ao cadastrar curso: {ex.Message}");
+                }
+                break;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"\nErro ao cadastrar curso: {ex.Message}");
-            }
-            break;
-        }
 
         case "2":
-        {
-            Console.WriteLine("\n--- CADASTRO DE PROFESSOR ---");
-            Console.Write("Nome: ");
-            string nome = Console.ReadLine() ?? "";
-
-            Console.Write("CPF: ");
-            string cpf = Console.ReadLine() ?? "";
-
-            Console.Write("E-mail: ");
-            string email = Console.ReadLine() ?? "";
-
-            Console.Write("Registro: ");
-            string registro = Console.ReadLine() ?? "";
-
-            Console.Write("Especialidade: ");
-            string especialidade = Console.ReadLine() ?? "";
-
-            try
             {
-                professorService.CadastrarProfessor(nome, cpf, email, registro, especialidade);
-                Console.WriteLine("\nProfessor cadastrado com sucesso!");
+                Console.WriteLine("\n--- CADASTRO DE PROFESSOR ---");
+                Console.Write("Nome: ");
+                string nome = Console.ReadLine() ?? "";
+
+                Console.Write("CPF: ");
+                string cpf = Console.ReadLine() ?? "";
+
+                Console.Write("E-mail: ");
+                string email = Console.ReadLine() ?? "";
+
+                Console.Write("Registro: ");
+                string registro = Console.ReadLine() ?? "";
+
+                Console.Write("Especialidade: ");
+                string especialidade = Console.ReadLine() ?? "";
+
+                try
+                {
+                    professorService.CadastrarProfessor(nome, cpf, email, registro, especialidade);
+                    Console.WriteLine("\nProfessor cadastrado com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"\nErro ao cadastrar professor: {ex.Message}");
+                }
+                break;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"\nErro ao cadastrar professor: {ex.Message}");
-            }
-            break;
-        }
 
         case "3":
-        {
-            Console.WriteLine("\n--- CADASTRO DE ALUNO ---");
-            Console.Write("Nome: ");
-            string nome = Console.ReadLine() ?? "";
-
-            Console.Write("CPF: ");
-            string cpf = Console.ReadLine() ?? "";
-
-            Console.Write("E-mail: ");
-            string email = Console.ReadLine() ?? "";
-
-            Console.Write("Matrícula: ");
-            string matricula = Console.ReadLine() ?? "";
-
-            try
             {
-                alunoService.CadastrarAluno(nome, cpf, email, matricula);
-                Console.WriteLine("\nAluno cadastrado com sucesso!");
+                Console.WriteLine("\n--- CADASTRO DE ALUNO ---");
+                Console.Write("Nome: ");
+                string nome = Console.ReadLine() ?? "";
+
+                Console.Write("CPF: ");
+                string cpf = Console.ReadLine() ?? "";
+
+                Console.Write("E-mail: ");
+                string email = Console.ReadLine() ?? "";
+
+                Console.Write("Matrícula: ");
+                string matricula = Console.ReadLine() ?? "";
+
+                try
+                {
+                    alunoService.CadastrarAluno(nome, cpf, email, matricula);
+                    Console.WriteLine("\nAluno cadastrado com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"\nErro ao cadastrar aluno: {ex.Message}");
+                }
+                break;
             }
-            catch (Exception ex)
+
+        case "4":
             {
-                Console.WriteLine($"\nErro ao cadastrar aluno: {ex.Message}");
+                Console.WriteLine("\n--- CADASTRO DE DISCIPLINA --- ");
+                Console.Write("Código: ");
+                string codigo = Console.ReadLine() ?? "";
+
+                Console.Write("Nome: ");
+                string nome = Console.ReadLine() ?? "";
+
+                Console.Write("Carga Horária: ");
+                int.TryParse(Console.ReadLine(), out int cargaHoraria);
+
+                Console.Write("Registro do professor: ");
+                string professor = Console.ReadLine() ?? "";
+
+                try
+                {
+                    disciplinaService.CadastrarDisciplina(codigo, nome, cargaHoraria, professor);
+                    Console.WriteLine("\nDisciplina cadastrada com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"\nErro ao cadastrar disciplina: {ex.Message}");
+                }
+                break;
             }
-            break;
-        }
 
         case "0":
-        {
-            executando = false;
-            Console.WriteLine("\nSaindo do sistema...");
-            break;
-        }
+            {
+                executando = false;
+                Console.WriteLine("\nSaindo do sistema...");
+                break;
+            }
 
         default:
             Console.WriteLine("\nOpção inválida! Tente novamente.");
