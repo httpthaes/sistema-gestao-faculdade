@@ -3,6 +3,7 @@ using SistemaGestaoFaculdade.Services;
 
 var cursoService = new CursoService();
 var professorService = new ProfessorService();
+var alunoService = new AlunoService();
 bool executando = true;
 
 while (executando)
@@ -10,6 +11,7 @@ while (executando)
     Console.WriteLine("\n========= GESTÃO DA FACULDADE =========");
     Console.WriteLine("1 - Cadastrar curso");
     Console.WriteLine("2 - Cadastrar professor");
+    Console.WriteLine("3 - Cadastrar aluno");
     Console.WriteLine("0 - Sair");
     Console.WriteLine("=======================================");
     Console.Write("Escolha uma opção: ");
@@ -77,13 +79,40 @@ while (executando)
             break;
         }
 
+        case "3":
+        {
+            Console.WriteLine("\n--- CADASTRO DE ALUNO ---");
+            Console.Write("Nome: ");
+            string nome = Console.ReadLine() ?? "";
+
+            Console.Write("CPF: ");
+            string cpf = Console.ReadLine() ?? "";
+
+            Console.Write("E-mail: ");
+            string email = Console.ReadLine() ?? "";
+
+            Console.Write("Matrícula: ");
+            string matricula = Console.ReadLine() ?? "";
+
+            try
+            {
+                alunoService.CadastrarAluno(nome, cpf, email, matricula);
+                Console.WriteLine("\nAluno cadastrado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nErro ao cadastrar aluno: {ex.Message}");
+            }
+            break;
+        }
+
         case "0":
         {
             executando = false;
             Console.WriteLine("\nSaindo do sistema...");
             break;
         }
-        
+
         default:
             Console.WriteLine("\nOpção inválida! Tente novamente.");
             break;
