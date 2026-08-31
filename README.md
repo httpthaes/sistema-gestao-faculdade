@@ -28,3 +28,21 @@ A arquitetura do código foi dividida em responsabilidades claras para facilitar
 3. Execute o comando abaixo no terminal para iniciar o menu interativo:
    ```bash
    dotnet run
+   ```
+---
+
+## 👥 Equipe do Projeto
+
+Agradecimento especial às desenvolvedoras que tornaram este projeto possível:
+
+## 👥 Equipe do Projeto
+
+| Foto| Integrante | Função | LinkedIn |
+| :--- | :--- | :---: |
+| <img src="https://github.com/SamlaManathe.png" width="60" style="border-radius: 50%;">| **Samla Manathe** | Desenvolvedora Backend | [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" height="22">](https://www.linkedin.com/in/samla-manathe/) |
+| <img src="https://github.com/renataaires.png" width="60" style="border-radius: 50%;">| **Renata Aires** | Desenvolvedora Backend | [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" height="22">](https://www.linkedin.com/in/renata-aires-saraiva/) |
+| <img src="https://github.com/httpthaes.png" width="60" style="border-radius: 50%;">| **Thaislaine Reis** | Desenvolvedora Backend | [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" height="22">](https://www.linkedin.com/in/thaislaine-reis/) |
+| <img src="https://github.com/espinola2007
+.png" width="60" style="border-radius: 50%;">| **Maria Vitória** | Desenvolvedora Backend | [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" height="22">](https://www.linkedin.com/in/perfil-maria) |
+| <img src="https://github.com/Anacarlags
+.png" width="60" style="border-radius: 50%;">| **Ana Carla De Lima** | Desenvolvedora Backend | [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" height="22">](https://www.linkedin.com/in/anacarladelima/) |
