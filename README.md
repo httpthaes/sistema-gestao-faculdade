@@ -35,12 +35,6 @@ A arquitetura do código foi dividida em responsabilidades claras para facilitar
 
 Agradecimento especial às desenvolvedoras que tornaram este projeto possível:
 
-## 👥 Equipe do Projeto
-
-## 👥 Equipe do Projeto
-
-Agradecimento especial às desenvolvedoras que tornaram este projeto possível:
-
 | Foto | Integrante | Função | LinkedIn |
 | :---: | :--- | :--- | :---: |
 | <img src="https://github.com/SamlaManathe.png" width="50" style="border-radius: 50%;"> | **Samla Manathe** | Desenvolvedora Backend | [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" height="22">](https://www.linkedin.com/in/samla-manathe/) |
