@@ -31,4 +31,25 @@ public class ProfessorService
     {
         return _professores.AsReadOnly();
     }
+
+    //Samla
+    public void ConsultarProfessores()
+    {
+        if (!_professores.Any())
+        {
+            Console.WriteLine("\nNenhum professor cadastrado.");
+            return;
+        }
+        Console.WriteLine("============ Professores ==============\n");
+
+        foreach (var professor in _professores)
+        {
+            Console.WriteLine($"Nome: {professor.Nome}");
+            Console.WriteLine($"CPF: {professor.Cpf}");
+            Console.WriteLine($"E-mail: {professor.Email}");
+            Console.WriteLine($"Registro: {professor.Registro}");
+            Console.WriteLine($"Especialidade: {professor.Especialidade}");
+            Console.WriteLine();
+        }
+    }
 }

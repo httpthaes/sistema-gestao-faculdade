@@ -26,4 +26,42 @@ public class AlunoService
     {
         return _alunos.AsReadOnly();
     }
+
+    //Samla
+    public void ConsultarAlunos(MatriculaService matriculaService)
+    {
+        if (!_alunos.Any())
+        {
+            Console.WriteLine("Nenhum aluno cadastrado.");
+            return;
+        }
+        
+        Console.WriteLine("=============== Alunos ================\n");
+
+        foreach (var aluno in _alunos)
+        {
+            Console.WriteLine($"Nome: {aluno.Nome}");
+            Console.WriteLine($"CPF: {aluno.Cpf}");
+            Console.WriteLine($"E-mail: {aluno.Email}");
+            Console.WriteLine($"Matrícula: {aluno.Matricula}");
+
+            var matriculas = matriculaService.ObterMatriculasPorAluno(aluno.Matricula);
+
+            Console.WriteLine("Cursos em que está matriculado: ");
+
+            if (!matriculas.Any())
+            {
+                Console.WriteLine("Nenhum curso matriculado\n");
+            }
+            else
+            {
+                foreach (var matricula in matriculas)
+                {
+                    Console.WriteLine($"{matricula.Curso.Nome}");
+                }
+            }
+
+            Console.WriteLine();
+        }
+    }
 }
