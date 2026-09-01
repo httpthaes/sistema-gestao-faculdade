@@ -1,4 +1,5 @@
-﻿using SistemaGestaoFaculdade.Models;
+using System.Linq.Expressions;
+using SistemaGestaoFaculdade.Models;
 using SistemaGestaoFaculdade.Services;
 
 void Prosseguir()
@@ -73,11 +74,11 @@ while (executando)
             {
                 Console.WriteLine($"\nErro ao cadastrar curso: {ex.Message}");
             }
-
+          
             Prosseguir();
             break;
         }
-
+        
         case "2":
         {
             Prosseguir();
@@ -110,11 +111,11 @@ while (executando)
             {
                 Console.WriteLine($"\nErro ao cadastrar professor: {ex.Message}");
             }
-
+              
             Prosseguir();
             break;
         }
-
+          
         case "3":
         {
             Prosseguir();
@@ -134,7 +135,7 @@ while (executando)
 
             Console.Write("Matrícula: ");
             string matricula = Console.ReadLine() ?? "";
-
+            
             try
             {
                 alunoService.CadastrarAluno(nome, cpf, email, matricula);
@@ -144,11 +145,11 @@ while (executando)
             {
                 Console.WriteLine($"\nErro ao cadastrar aluno: {ex.Message}");
             }
-
+          
             Prosseguir();
             break;
         }
-
+          
         case "4":
         {
             Prosseguir();
@@ -464,11 +465,11 @@ while (executando)
             break;
         }
         case "0":
-        {
-            executando = false;
-            Console.WriteLine("\nSaindo do sistema...");
-            break;
-        }
+            {
+                executando = false;
+                Console.WriteLine("\nSaindo do sistema...");
+                break;
+            }
 
         default:
         {
