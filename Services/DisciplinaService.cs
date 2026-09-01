@@ -26,4 +26,9 @@ public class DisciplinaService
         var novaDisciplina = new Disciplina(codigo, nome, cargaHoraria, professor);
         _disciplinas.Add(novaDisciplina);
     }
+
+    public IReadOnlyList<Disciplina> ObterTodasDisciplinas()
+    {
+        return _disciplinas.AsReadOnly();
+    }
 }

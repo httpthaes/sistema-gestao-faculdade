@@ -1,5 +1,4 @@
 using SistemaGestaoFaculdade.Models;
-
 namespace SistemaGestaoFaculdade.Services;
 
 public class MatriculaService
