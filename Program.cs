@@ -12,7 +12,7 @@ void Prosseguir()
 var cursoService = new CursoService();
 var professorService = new ProfessorService();
 var alunoService = new AlunoService();
-var disciplinaService = new DisciplinaService();
+var disciplinaService = new DisciplinaService(professorService);
 var matriculaService = new MatriculaService();
 var vinculoCursoDisciplinaService = new VinculoCursoDisciplinaService();
 bool executando = true;
@@ -28,13 +28,13 @@ while (executando)
     Console.WriteLine("1 - Cadastrar curso");
     Console.WriteLine("2 - Cadastrar professor");
     Console.WriteLine("3 - Cadastrar aluno");
-    Console.WriteLine("4 - Cadastrar diciplina");
+    Console.WriteLine("4 - Cadastrar disciplina");
     Console.WriteLine("5 - Vincular diciplina a um curso");
     Console.WriteLine("6 - Matricular aluno em curso");
     Console.WriteLine("7 - Lançar nota");
     Console.WriteLine("8 - Consultar pessoas");
 
-
+    Console.WriteLine("10 - Consultar matrículas");
     Console.WriteLine("11 - Consultar boletim");
 
     Console.WriteLine("0 - Sair");
@@ -150,7 +150,7 @@ while (executando)
             break;
         }
           
-        case "4":
+        case "4": // Thais
         {
             Prosseguir();
 
@@ -186,17 +186,7 @@ while (executando)
                 Console.Write("\nRegistro do professor responsável: ");
                 string registro = Console.ReadLine() ?? "";
 
-                var professorResponsavel = professores.FirstOrDefault(p => p.Registro == registro.Trim());
-
-                if (professorResponsavel is null)
-                {
-                    Console.WriteLine($"Erro ao cadastrar disciplina: Não foi encontrado nenhum professor com o registro '{registro}'.");
-
-                    Prosseguir();
-                    break;
-                }
-
-                disciplinaService.CadastrarDisciplina(codigo, nome, cargaHoraria, professorResponsavel);
+                disciplinaService.CadastrarDisciplina(codigo, nome, cargaHoraria, registro);
                 Console.WriteLine("\nDisciplina cadastrada com sucesso!");
             }
             catch (Exception ex)
@@ -409,19 +399,34 @@ while (executando)
             Prosseguir();
             break;
         }
-        case "10":
-        {
-            Prosseguir();
+        case "10": // Thais
+            {
+                Prosseguir();
 
-            Console.WriteLine("\n=======================================");
-            Console.WriteLine("\tConsulta de Matrículas\t");
-            Console.WriteLine("=======================================\n");
+                Console.WriteLine("\n=======================================");
+                Console.WriteLine("\tConsulta de Matrículas\t");
+                Console.WriteLine("=======================================\n");
 
-            // Código aqui (cada vez que adicionar um novo break, inserir antes a função Prosseguir();
+                var matriculas = matriculaService.ObterTodasMatriculas();
 
-            Prosseguir();
-            break;
-        }
+                if (matriculas.Count == 0)
+                {
+                    Console.WriteLine("Nenhuma matrícula cadastrada.");
+                }
+                else
+                {
+                    foreach (var matricula in matriculas)
+                    {
+                        Console.WriteLine($"Aluno: {matricula.Aluno.Nome}");
+                        Console.WriteLine($"Matrícula: {matricula.Aluno.Matricula}");
+                        Console.WriteLine($"Curso: {matricula.Curso.Codigo}");
+                        Console.WriteLine($"Tipo: {matricula.Curso.Tipo}\n");
+                    }
+                }
+
+                Prosseguir();
+                break;
+            }
         case "11": // Samla
         {
             Prosseguir();
