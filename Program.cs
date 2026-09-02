@@ -17,6 +17,9 @@ var matriculaService = new MatriculaService();
 var vinculoCursoDisciplinaService = new VinculoCursoDisciplinaService();
 bool executando = true;
 var boletimService = new BoletimService(matriculaService, vinculoCursoDisciplinaService);
+var notificacaoService = new EnviarNotificacaoService(
+    alunoService,
+    professorService);
 
 while (executando)
 { 
@@ -33,10 +36,10 @@ while (executando)
     Console.WriteLine("6 - Matricular aluno em curso");
     Console.WriteLine("7 - Lançar nota");
     Console.WriteLine("8 - Consultar pessoas");
-
+    Console.WriteLine("9 - Consultar cursos");
     Console.WriteLine("10 - Consultar matrículas");
     Console.WriteLine("11 - Consultar boletim");
-
+    Console.WriteLine("12 - Enviar notificação");
     Console.WriteLine("0 - Sair");
 
     Console.Write("\nEscolha uma opção: ");
@@ -394,7 +397,13 @@ while (executando)
             Console.WriteLine("\t  Consulta de Cursos\t");
             Console.WriteLine("=======================================\n");
 
-            // Código aqui (cada vez que adicionar um novo break, inserir antes a função Prosseguir();
+            Console.Write("Código do curso: ");
+            string codigoCurso = Console.ReadLine() ?? "";
+
+            cursoService.ConsultarCurso(
+                codigoCurso,
+                vinculoCursoDisciplinaService,
+                matriculaService);
 
             Prosseguir();
             break;
@@ -464,7 +473,13 @@ while (executando)
             Console.WriteLine("\tEnvio de Notificações\t");
             Console.WriteLine("=======================================\n");
 
-            // Código aqui (cada vez que adicionar um novo break, inserir antes a função Prosseguir();
+            Console.Write("Nome do destinatário: ");
+            string nome = Console.ReadLine() ?? "";
+
+            Console.Write("Mensagem: ");
+            string mensagem = Console.ReadLine() ?? "";
+
+            notificacaoService.EnviarNotificacao(nome, mensagem);
 
             Prosseguir();
             break;

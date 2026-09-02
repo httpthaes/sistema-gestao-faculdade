@@ -26,4 +26,61 @@ public class CursoService
     {
         return _cursos.AsReadOnly();
     }
+
+    public void ConsultarCurso(
+        string codigoCurso,
+        VinculoCursoDisciplinaService vinculoService,
+        MatriculaService matriculaService)
+    {
+        var curso = _cursos.FirstOrDefault(c =>
+            c.Codigo == codigoCurso.ToUpper().Trim());
+
+        if (curso is null)
+            throw new InvalidOperationException("Curso não encontrado.");
+
+        Console.WriteLine("\n=============== Curso =================\n");
+        Console.WriteLine($"Nome: {curso.Nome}");
+        Console.WriteLine($"Código: {curso.Codigo}");
+        Console.WriteLine($"Tipo: {curso.Tipo}");
+
+        Console.WriteLine("\nDisciplinas:");
+
+        var disciplinas =
+            vinculoService.ObterDisciplinasDoCurso(curso.Codigo);
+
+        if (disciplinas.Count == 0)
+        {
+            Console.WriteLine("Nenhuma disciplina vinculada.");
+        }
+        else
+        {
+            foreach (var disciplina in disciplinas)
+            {
+                Console.WriteLine(
+                    $"{disciplina.Nome} - Professor: {disciplina.ProfessorResponsavel.Nome}");
+            }
+        }
+
+        Console.WriteLine("\nAlunos matriculados:");
+
+        var matriculas = matriculaService
+            .ObterTodasMatriculas()
+            .Where(m => m.Curso.Codigo == curso.Codigo)
+            .ToList();
+
+        if (matriculas.Count == 0)
+        {
+            Console.WriteLine("Nenhum aluno matriculado.");
+        }
+        else
+        {
+            foreach (var matricula in matriculas)
+            {
+                Console.WriteLine(
+                    $"{matricula.Aluno.Nome} ({matricula.Aluno.Matricula})");
+            }
+        }
+
+        Console.WriteLine("\n=======================================");
+    }
 }

@@ -1,19 +1,20 @@
 using SistemaGestaoFaculdade.Models;
-namespace SistemaGestaoFaculdade.Services;
 
+namespace SistemaGestaoFaculdade.Services;
 
 public class EnviarNotificacaoService
 {
-    private readonly List<Aluno> listaAlunos;
-    private readonly List<Professor> listaProfessores;
+    private readonly AlunoService _alunoService;
+    private readonly ProfessorService _professorService;
 
-    public EnviarNotificacaoService(List<Aluno> listaAlunos, List<Professor> listaProfessores)
+    public EnviarNotificacaoService(
+        AlunoService alunoService,
+        ProfessorService professorService)
     {
-        this.listaAlunos = listaAlunos;
-        this.listaProfessores = listaProfessores;
+        _alunoService = alunoService;
+        _professorService = professorService;
     }
 
-    // Método principal de envio da notificação
     public void EnviarNotificacao(string nomeDestinatario, string mensagem)
     {
         if (string.IsNullOrWhiteSpace(nomeDestinatario))
@@ -28,19 +29,32 @@ public class EnviarNotificacaoService
             return;
         }
 
-        // Busca primeiro nos alunos; se não encontrar, busca nos professores
-        Pessoa? destinatario = listaAlunos.FirstOrDefault(a => a.Nome.Equals(nomeDestinatario.Trim(), StringComparison.OrdinalIgnoreCase))
-        ?? (Pessoa?)listaProfessores.FirstOrDefault(p => p.Nome.Equals(nomeDestinatario.Trim(), StringComparison.OrdinalIgnoreCase));
+        var aluno = _alunoService
+            .ObterTodosAlunos()
+            .FirstOrDefault(a =>
+                a.Nome.Equals(nomeDestinatario.Trim(),
+                StringComparison.OrdinalIgnoreCase));
 
-        // Se não encontrou ninguém cadastrado com esse nome
-        if (destinatario == null)
+        if (aluno != null)
         {
-            Console.WriteLine($"Destinatário '{nomeDestinatario}' não encontrado no sistema!");
+            Console.WriteLine($"\nNotificação para {aluno.Nome}:");
+            Console.WriteLine(mensagem);
             return;
         }
 
-        // Exibição no padrão exato solicitado no trabalho
-        Console.WriteLine($"Notificação para {destinatario.Nome}:");
-        Console.WriteLine($"{mensagem}");
+        var professor = _professorService
+            .ObterTodosProfessores()
+            .FirstOrDefault(p =>
+                p.Nome.Equals(nomeDestinatario.Trim(),
+                StringComparison.OrdinalIgnoreCase));
+
+        if (professor != null)
+        {
+            Console.WriteLine($"\nNotificação para {professor.Nome}:");
+            Console.WriteLine(mensagem);
+            return;
+        }
+
+        Console.WriteLine($"\nDestinatário '{nomeDestinatario}' não encontrado no sistema!");
     }
 }

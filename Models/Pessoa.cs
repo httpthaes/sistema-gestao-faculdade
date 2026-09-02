@@ -8,11 +8,11 @@ public abstract class Pessoa
 
     protected Pessoa(string nome, string cpf, string email)
     {
-        if(string.IsNullOrWhiteSpace(nome))
-        throw new ArgumentException("O nome é obrigatório.");
+        if (string.IsNullOrWhiteSpace(nome))
+            throw new ArgumentException("O nome é obrigatório.");
 
-        if(string.IsNullOrWhiteSpace(cpf))
-        throw new ArgumentException("O CPF é obrigatório.");
+        if (string.IsNullOrWhiteSpace(cpf))
+            throw new ArgumentException("O CPF é obrigatório.");
 
         cpf = cpf.Trim();
 

@@ -32,7 +32,7 @@ public class AlunoService
     {
         if (!_alunos.Any())
         {
-            Console.WriteLine("Nenhum aluno cadastrado.");
+            Console.WriteLine("Nenhum aluno cadastrado.\n");
             return;
         }
         
